@@ -30,16 +30,16 @@
         <div id="navbar-backdrop" class="navbar__backdrop"></div>
         <nav id="navbar" class="navbar">
             <ul class="navbar__list">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about-me">About</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li class="navbar-link"><a href="#home">Home</a></li>
+                <li class="navbar-link"><a href="#about-me">About</a></li>
+                <li class="navbar-link"><a href="#portfolio">Portfolio</a></li>
+                <li class="navbar-link"><a href="#blog">Blog</a></li>
+                <li class="navbar-link"><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </section>
 
-    <section class="hero container">
+    <section id="home" class="hero container">
         <div class="hero__background"></div>
         <div class="hero__top block">
             <div class="window-style">
@@ -49,17 +49,15 @@
                     <div class=""></div>
                 </div>
             </div>
-            <div class="hero__text">
-                <h2 class="hero__title"><span>Hi I'am</span> Abinash Shrestha</h2>
-                <p class="hero__subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores error,
-                    expedita
-                    modi reiciendis explicabo dolor quos minus nihil quae? Repudiandae.</p>
-                <p class="hero__subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores error,
-                    expedita
-                    modi reiciendis explicabo dolor quos minus nihil quae? Repudiandae.</p>
-            </div>
+
             <div class="hero__img">
                 <img src="./assets//img/profile-pic.jpg" alt="">
+            </div>
+            <div class="hero__text">
+                <h2 class="hero__title"><span>Hi I'am</span> Abinash Shrestha</h2>
+                <p class="hero__subtitle">I am an aspiring backend engineer who loves to learn new technologies and
+                    watching anime.</p>
+                <p class="hero__subtitle">Currently I am studying engineering at NCIT</p>
             </div>
             <div class="hero__social-links">
                 <h3>Find Me At</h3>
@@ -71,26 +69,32 @@
                     </div>
                     <div class="social-link">
                         <a href="#">
-                            <i class="fab fa-facebook-f"></i>
+                            <i class="fab fa-telegram-plane"></i>
                         </a>
                     </div>
                     <div class="social-link">
                         <a href="#">
-                            <i class="fab fa-facebook-f"></i>
+                            <i class="fab fa-github"></i>
                         </a>
                     </div>
                     <div class="social-link">
                         <a href="#">
-                            <i class="fab fa-facebook-f"></i>
+                            <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>
                 </div>
             </div>
+
+        </div>
+        <div class="go-down">
+            <a href="#about-me">
+                <i class="fas fa-chevron-down"></i>
+            </a>
         </div>
     </section>
 
     <div>
-        <div class="about-me container section">
+        <div id="about-me" class="about-me container section">
             <h2>About Me</h2>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad ex dolore eum magni illo molestias nam
                 dignissimos dicta mollitia. Deserunt excepturi et quo maiores labore atque nihil. Facilis, animi
@@ -116,6 +120,7 @@
         <div class="tools-and-tech container section">
             <h2>Tools & Tech I use</h2>
             <div class="techs">
+
                 <div class="tech">
                     <div class="tech-icon">
                         <i class="fab fa-facebook-f"></i>
