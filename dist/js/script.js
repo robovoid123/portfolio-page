@@ -2,6 +2,8 @@ const navbarHam = document.getElementById("navbar-ham");
 const navbarCross = document.getElementById("navbar-cross");
 const navbar = document.getElementById("navbar");
 const navbarBackdrop = document.getElementById("navbar-backdrop");
+const navbarLinks = document.querySelectorAll(".navbar-link");
+console.log(navbarLinks);
 
 const navbarToggle = () => {
   const closingAction = () => {
@@ -11,6 +13,8 @@ const navbarToggle = () => {
     navbarHam.classList.remove("navbar__button--close");
     navbar.classList.remove("navbar--show");
     navbarBackdrop.classList.remove("navbar__backdrop--open");
+
+    console.log("action triggered");
   };
 
   const openingAction = () => {
@@ -25,6 +29,10 @@ const navbarToggle = () => {
   navbarHam.addEventListener("click", openingAction);
   navbarCross.addEventListener("click", closingAction);
   navbarBackdrop.addEventListener("click", closingAction);
+
+  navbarLinks.forEach((link) => {
+    link.addEventListener("click", closingAction);
+  });
 };
 
 navbarToggle();

@@ -123,6 +123,10 @@ select {
 @media screen and (min-width: 1200px) {
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-family);
   color: var(--light-color);
@@ -221,7 +225,7 @@ a:hover {
 
 .navbar__backdrop {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -301,9 +305,6 @@ a:hover {
 }
 
 .window-style {
-  position: absolute;
-  top: 0;
-  left: 0;
   display: flex;
   align-items: center;
   width: 100%;
@@ -335,7 +336,6 @@ a:hover {
 
 .hero__text {
   margin: var(--spacing-2);
-  margin-top: calc(var(--spacing-2) + 2.5rem);
   padding: 0 var(--spacing-2);
   border-left: 2px solid var(--primary-color);
 }
@@ -359,9 +359,10 @@ a:hover {
 }
 
 .hero__img {
+  margin-top: calc(var(--spacing-3) + 1rem);
+  margin-bottom: var(--spacing-2);
   position: relative;
   padding: var(--spacing-1);
-  margin: var(--spacing-2);
   border-radius: var(--border-radius);
   border: 2px dashed var(--primary-color);
 }
@@ -374,15 +375,14 @@ a:hover {
 }
 
 .hero__social-links {
-  padding: var(--spacing-2);
   padding-bottom: var(--spacing-3);
 }
 
 .hero__social-links h3 {
-  font-size: var(--fz-0);
+  font-size: 0.9rem;
   font-weight: var(--fw-light);
   text-align: center;
-  margin-bottom: var(--spacing-2);
+  margin-bottom: var(--spacing-1);
 }
 
 .social-links {
@@ -408,17 +408,89 @@ a:hover {
   height: 2rem;
   width: 2rem;
   border-radius: var(--border-radius);
-  border: 2px solid var(--background-color);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: var(--fz-0);
 }
 
 .social-link:hover i {
   background-color: var(--secondary-color);
   color: var(--dark-color);
+}
+
+.go-down {
+  display: none;
+  position: absolute;
+  bottom: var(--spacing-3);
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--light-color);
+  height: calc(var(--fz-2) + 1rem);
+  width: calc(var(--fz-2) + 1rem);
+  border-radius: 50%;
   animation: bounce 1s infinite;
+  cursor: pointer;
+}
+
+.go-down i {
+  font-size: var(--fz-2);
+  counter-reset: var(--light-color);
+}
+
+.go-down:hover {
+  border-color: var(--secondary-color);
+}
+.go-down:hover i {
+  color: var(--secondary-color);
+}
+
+@media screen and (min-width: 768px) {
+  .navbar__button {
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+  }
+
+  .hero {
+    padding-top: 0;
+  }
+
+  .hero__top {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 890px;
+  }
+
+  .hero__text {
+    margin-top: calc(var(--spacing-4) + 1rem);
+    margin-right: 0;
+    flex: 1;
+    order: 1;
+  }
+
+  .hero__img {
+    order: 2;
+    overflow: hidden;
+  }
+
+  .hero__img {
+    margin-right: var(--spacing-2);
+    margin-top: calc(var(--spacing-4) + 2.5rem);
+  }
+
+  .hero__social-links {
+    width: 100%;
+    order: 3;
+    margin-top: var(--spacing-1);
+  }
+
+  .social-link i {
+  }
+
+  .go-down {
+    display: flex;
+  }
 }
 
 /* ------------------------- */
@@ -442,7 +514,7 @@ a:hover {
 }
 
 .section-break {
-  margin: var(--spacing-5);
+  margin: var(--spacing-2);
   display: flex;
   gap: var(--spacing-3);
   align-items: center;
@@ -473,12 +545,13 @@ a:hover {
 }
 
 .about-me {
-  margin-top: calc(var(--spacing-3) + 5vh);
+  padding-top: calc(var(--spacing-3) + 5vh);
 }
 
 .techs {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   margin-top: var(--spacing-3);
   gap: var(--spacing-2);
 }
@@ -503,10 +576,27 @@ a:hover {
   margin-right: var(--spacing-2);
 }
 
+@media screen and (min-width: 768px) {
+  .techs {
+    justify-content: left;
+  }
+
+  .tech {
+    width: calc(25% - var(--spacing-2));
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .tech {
+    width: calc(20% - var(--spacing-2));
+  }
+}
+
 .projects {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3);
+  margin-top: var(--spacing-3);
 }
 
 .project {
@@ -567,7 +657,26 @@ a:hover {
   color: var(--dark-color);
 }
 
+@media screen and (min-width: 768px) {
+  .projects {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .project {
+    width: calc(50% - var(--spacing-2));
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .project {
+    width: calc(25% - var(--spacing-3));
+  }
+}
+
 .contact-me form {
+  margin: auto;
+  margin-top: var(--spacing-3);
   display: flex;
   padding: var(--spacing-2);
   border: 2px solid var(--dark-color);
@@ -601,4 +710,10 @@ a:hover {
 .contact-me input[type="submit"]:hover {
   color: var(--dark-color);
   background-color: var(--secondary-color);
+}
+
+@media screen and (min-width: 768px) {
+  .contact-me form {
+    max-width: 500px;
+  }
 }
