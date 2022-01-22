@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/robovoid123/portfolio-page/issues"
   },
-  "homepage": "https://robovoid123.github.io/portfolio",
+  "homepage": "https://robovoid123.github.io/portfolio-page",
   "dependencies": {
     "gh-pages": "^3.2.3"
   }
