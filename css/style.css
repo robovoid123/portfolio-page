@@ -82,6 +82,43 @@ select {
 /* variables and html element */
 /* ------------------------- */
 
+@font-face {
+  font-family: "hack";
+  src: url("/dist/assets/fonts/Hack/Hack\ Regular\ Nerd\ Font\ Complete.ttf");
+}
+.nf,
+.nerd-font,
+.nerd-fonts {
+  font-family: "hack";
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.nf-custom-vim::before {
+  content: "\e7c5";
+}
+
+.nf-custom-postgres::before {
+  content: "\e76e";
+}
+
+.nf-custom-mongo::before {
+  content: "\e7a4";
+}
+
+.nf-custom-ts::before {
+  content: "\fbe4";
+}
+
+.nf-custom-hand::before {
+  content: "\f256";
+}
+
 :root {
   --primary-color: #e46aac;
   --secondary-color: #11e378;
@@ -156,6 +193,41 @@ a:hover {
   padding: var(--spacing-1);
 }
 
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes grow-shrink {
+  from {
+    transform: scale(1, 1);
+  }
+
+  50% {
+    transform: scale(1.1, 1.1);
+  }
+
+  to {
+    transform: scale(1, 1);
+  }
+}
+
 @media screen and (min-width: 576px) {
   .container {
     max-width: 540px;
@@ -183,9 +255,6 @@ a:hover {
 /* ------------------------- */
 /* navbar
 /* ------------------------- */
-
-.topbar {
-}
 
 .navbar__button {
   position: fixed;
@@ -392,18 +461,6 @@ a:hover {
   justify-content: center;
 }
 
-@keyframes bounce {
-  0%,
-  100% {
-    transform: translateY(-25%);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-  50% {
-    transform: translateY(0);
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
-}
-
 .social-link i {
   height: 2rem;
   width: 2rem;
@@ -426,11 +483,9 @@ a:hover {
   width: 100vw;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--light-color);
   height: calc(var(--fz-2) + 1rem);
   width: calc(var(--fz-2) + 1rem);
-  border-radius: 50%;
-  animation: bounce 1s infinite;
+  animation: bounce 1.2s infinite;
   cursor: pointer;
 }
 
@@ -531,15 +586,6 @@ a:hover {
   color: var(--primary-color);
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .section-break:hover i {
   animation: spin 1s linear infinite;
 }
@@ -568,11 +614,19 @@ a:hover {
   align-items: center;
   background-color: var(--dark-color);
   border-radius: var(--border-radius);
-  transition: 1s ease-in-out;
+  transition: 500ms ease-in-out;
+}
+
+.tech:hover:nth-child(even) {
+  background-color: var(--primary-color);
+}
+
+.tech:hover:nth-child(odd) {
+  background-color: var(--secondary-color);
 }
 
 .tech i {
-  font-size: var(--fz-1);
+  font-size: var(--fz-2);
   margin-right: var(--spacing-2);
 }
 
