@@ -84,7 +84,7 @@ select {
 
 @font-face {
   font-family: "hack";
-  src: url("/dist/assets/fonts/Hack/Hack\ Regular\ Nerd\ Font\ Complete.ttf");
+  src: url("../assets/fonts/Hack/hack.ttf");
 }
 .nf,
 .nerd-font,
