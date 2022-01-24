@@ -3,7 +3,10 @@ const navbarCross = document.getElementById("navbar-cross");
 const navbar = document.getElementById("navbar");
 const navbarBackdrop = document.getElementById("navbar-backdrop");
 const navbarLinks = document.querySelectorAll(".navbar-link");
-console.log(navbarLinks);
+const projectDesc = document.querySelectorAll(".project__desc p");
+const windowCloseBtn = document.querySelectorAll(".close");
+const windowMinBtn = document.querySelectorAll(".minimize");
+const windowFullBtn = document.querySelectorAll(".fullscreen");
 
 const navbarToggle = () => {
   const closingAction = () => {
@@ -35,4 +38,44 @@ const navbarToggle = () => {
   });
 };
 
+const reduceDescriptionText = () => {
+  const MAX_TEXT = 60;
+  projectDesc.forEach((desc) => {
+    let text = desc.innerHTML;
+    if (text.length > MAX_TEXT) {
+      let idx = MAX_TEXT;
+      for (let i = MAX_TEXT; i < text.length; i++) {
+        if (text[i] === " ") break;
+        idx++;
+      }
+      text = text.slice(0, idx);
+    }
+    desc.innerHTML = text + "...";
+  });
+};
+
+// TODO: make window resizable
+// TODO: make window draggable
+const windowActions = () => {
+  // TODO: add functionality
+  windowFullBtn.forEach((btn) => {
+    btn.addEventListener("click", () => console.log("fullscreen"));
+  });
+
+  // TODO: add functionality
+  windowMinBtn.forEach((btn) => {
+    btn.addEventListener("click", () => console.log("minimize"));
+  });
+
+  windowCloseBtn.forEach((btn) => {
+    btn.addEventListener(
+      "click",
+      () =>
+        (btn.parentElement.parentElement.parentElement.style = "display: none")
+    );
+  });
+};
+
+reduceDescriptionText();
 navbarToggle();
+windowActions();
