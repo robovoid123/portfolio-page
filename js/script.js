@@ -1,14 +1,10 @@
-const navbarHam = document.getElementById("navbar-ham");
-const navbarCross = document.getElementById("navbar-cross");
-const navbar = document.getElementById("navbar");
-const navbarBackdrop = document.getElementById("navbar-backdrop");
-const navbarLinks = document.querySelectorAll(".navbar-link");
-const projectDesc = document.querySelectorAll(".project__desc p");
-const windowCloseBtn = document.querySelectorAll(".close");
-const windowMinBtn = document.querySelectorAll(".minimize");
-const windowFullBtn = document.querySelectorAll(".fullscreen");
+(function navbarToggle() {
+  const navbarHam = document.getElementById("navbar-ham");
+  const navbarCross = document.getElementById("navbar-cross");
+  const navbar = document.getElementById("navbar");
+  const navbarBackdrop = document.getElementById("navbar-backdrop");
+  const navbarLinks = document.querySelectorAll(".navbar-link");
 
-const navbarToggle = () => {
   const closingAction = () => {
     navbarCross.classList.add("navbar__button--close");
     navbarCross.classList.remove("navbar__button--open");
@@ -16,8 +12,6 @@ const navbarToggle = () => {
     navbarHam.classList.remove("navbar__button--close");
     navbar.classList.remove("navbar--show");
     navbarBackdrop.classList.remove("navbar__backdrop--open");
-
-    console.log("action triggered");
   };
 
   const openingAction = () => {
@@ -36,10 +30,11 @@ const navbarToggle = () => {
   navbarLinks.forEach((link) => {
     link.addEventListener("click", closingAction);
   });
-};
+})();
 
-const reduceDescriptionText = () => {
-  const MAX_TEXT = 60;
+(function reduceDescriptionText() {
+  const projectDesc = document.querySelectorAll(".project__desc p");
+  const MAX_TEXT = 90;
   projectDesc.forEach((desc) => {
     let text = desc.innerHTML;
     if (text.length > MAX_TEXT) {
@@ -52,30 +47,93 @@ const reduceDescriptionText = () => {
     }
     desc.innerHTML = text + "...";
   });
-};
+})();
 
-// TODO: make window resizable
-// TODO: make window draggable
-const windowActions = () => {
-  // TODO: add functionality
-  windowFullBtn.forEach((btn) => {
-    btn.addEventListener("click", () => console.log("fullscreen"));
-  });
+// window in dom should be like this
+// container should have height and width specified
+// <div class="header-top-container">
+//   <div class="window">
+//     <div className="window-header">
+//       <button className="close"></button>
+//       <button className="minimize"></button>
+//       <button className="fullscreen"></button>
+//     </div>
+//     <div className="window-content">
+//       {content here}
+//     </div>
+//   </div>
+// </div>
 
-  // TODO: add functionality
-  windowMinBtn.forEach((btn) => {
-    btn.addEventListener("click", () => console.log("minimize"));
-  });
+class Window {
+  isResizing = false;
+  isMinimized = false;
+  isClosed = false;
+  isFullScreen = false;
+  domWindow = null;
 
-  windowCloseBtn.forEach((btn) => {
-    btn.addEventListener(
+  constructor(domWindow) {
+    this.domWindow = domWindow;
+    this.domHeader = domWindow.children[0]; // first element always header
+    this.domCloseBtn = this.domHeader.children[0].children[0];
+    this.domMinimizeBtn = this.domHeader.children[0].children[1];
+    this.domFullScreenBtn = this.domHeader.children[0].children[2];
+
+    // adding eventListners
+    this.domCloseBtn.addEventListener("click", this.close.bind(this));
+    this.domMinimizeBtn.addEventListener("click", this.minimize.bind(this));
+    this.domFullScreenBtn.addEventListener(
       "click",
-      () =>
-        (btn.parentElement.parentElement.parentElement.style = "display: none")
+      this.makeFullScreen.bind(this)
     );
-  });
-};
 
-reduceDescriptionText();
-navbarToggle();
-windowActions();
+    this.domHeader.addEventListener("mousedown", this.startDrag.bind(this));
+  }
+
+  startDrag(event) {
+    this.domWindow.style.zIndex = 300;
+
+    // get the mouse cursor position at startup:
+    this.prevX = event.clientX;
+    this.prevY = event.clientY;
+
+    // this.domWindow.addEventListener("mouseup", this.finishDrag.bind(this));
+    this.domWindow.onmouseup = this.finishDrag.bind(this);
+    this.domWindow.onmousemove = this.drag.bind(this);
+  }
+
+  drag(event) {
+    // calculate the new cursor position:
+    let deltaX = this.prevX - event.clientX;
+    let deltaY = this.prevY - event.clientY;
+    this.prevX = event.clientX;
+    this.prevY = event.clientY;
+
+    // set the element's new position:
+    this.domWindow.style.top = this.domWindow.offsetTop - deltaY + "px";
+    this.domWindow.style.left = this.domWindow.offsetLeft - deltaX + "px";
+  }
+
+  finishDrag(event) {
+    // stop moving when mouse button is released:
+    this.domWindow.onmouseup = null;
+    this.domWindow.onmousemove = null;
+
+    // send not moving window to back
+    this.domWindow.style.zIndex = 299;
+  }
+
+  close(event) {
+    this.domWindow.style = "display: none";
+  }
+
+  minimize(event) {}
+  resize(event) {}
+  makeFullScreen(event) {}
+}
+
+let windowObjList = [];
+const domWindows = document.querySelectorAll(".window");
+
+domWindows.forEach((window) => {
+  windowObjList.push(new Window(window));
+});
