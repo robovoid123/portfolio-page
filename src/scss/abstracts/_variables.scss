@@ -1,0 +1,82 @@
+/* font weight */
+$font-regular: 400;
+$font-medium: 500;
+$font-semi-bold: 600;
+$font-bold: 700;
+
+// /* font size */
+// $p1: 0.875rem !default;
+// $p2: 1.125rem !default;
+// $b1: 0.875rem !default;
+
+// /* 3.0 Heading Size*/
+// $h1: 4rem !default;
+// $h2: 2.75rem !default;
+// $h3: 2rem !default;
+// $h4: 1.5rem !default;
+// $h5: 1.5rem !default;
+// $h6: 0.875rem !default;
+
+$font-family: "Montserrat", sans-serif;
+
+/* font size */
+$fz--1: 0.9rem;
+$fz-0: 1rem;
+$fz-1: 1.2rem;
+$fz-2: 1.6rem;
+
+/* colors */
+
+/* border radius */
+$border-radius: 5px;
+
+/* spacing */
+$spacing-0: 0.3rem;
+$spacing-1: 0.5rem;
+$spacing-2: 1rem;
+$spacing-3: 1.5rem;
+$spacing-4: 2rem;
+$spacing-5: 3rem;
+
+/* z index */
+$z-idx-nav-btn: 1000;
+$z-idx-nav: 999;
+$z-idx-backdrop: 9;
+$z-idx-backgound: -20;
+
+// color variable map
+$colors: (
+  background: (
+    base: #23333f,
+    light: #3e5c72,
+    transparent: #23333f7c,
+  ),
+  dark: (
+    base: #0d1419,
+    light: #343b41,
+  ),
+  white: (
+    base: #ffffff,
+    dark: #afafaf,
+  ),
+  primary: (
+    base: #e46aac,
+    light: #000000,
+  ),
+  secondary: (
+    base: #11e378,
+    light: #999999,
+  ),
+  yellow: #f1fa94,
+);
+
+// retrieve color from $colors map ie. `color(base, primary)`
+@function color($color-name, $color-variant: null) {
+  // color variant is optional
+  @if ($color-variant != null) {
+    // map inception
+    @return map-get(map-get($colors, $color-name), $color-variant);
+  } @else {
+    @return map-get($colors, $color-name);
+  }
+}

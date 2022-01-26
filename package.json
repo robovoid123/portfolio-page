@@ -1,23 +1,31 @@
 {
   "name": "portfolio",
   "version": "1.0.0",
-  "description": "",
+  "description": "portfolio page with vanilla js, html and sass",
   "main": "index.js",
   "scripts": {
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "build:sass": "node-sass --source-map=true src/scss/ -o dist/new_css/",
+    "prefix": "npm run build:sass && postcss dist/new_css/*.css -r -u autoprefixer",
+    "start": "onchange src/scss/** -- npm run prefix"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/robovoid123/portfolio-page.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Abinash Shrestha",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/robovoid123/portfolio-page/issues"
   },
-  "homepage": "https://robovoid123.github.io/portfolio-page",
-  "dependencies": {
-    "gh-pages": "^3.2.3"
+  "homepage": "https://abinash.info.np",
+  "devDependencies": {
+    "autoprefixer": "^10.4.2",
+    "gh-pages": "^3.2.3",
+    "node-sass": "^7.0.1",
+    "onchange": "^7.1.0",
+    "postcss-cli": "^9.1.0",
+    "postcss-minify": "^1.1.0"
   }
 }
