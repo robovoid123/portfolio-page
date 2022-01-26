@@ -32,22 +32,68 @@
   });
 })();
 
-(function reduceDescriptionText() {
-  const projectDesc = document.querySelectorAll(".project__desc p");
-  const MAX_TEXT = 90;
-  projectDesc.forEach((desc) => {
-    let text = desc.innerHTML;
-    if (text.length > MAX_TEXT) {
-      let idx = MAX_TEXT;
-      for (let i = MAX_TEXT; i < text.length; i++) {
-        if (text[i] === " ") break;
-        idx++;
-      }
-      text = text.slice(0, idx);
+function reduceText(text, wordCount) {
+  if (text.length > wordCount) {
+    let idx = wordCount;
+    for (let i = wordCount; i < text.length; i++) {
+      if (text[i] === " ") break;
+      idx++;
     }
-    desc.innerHTML = text + "...";
-  });
-})();
+    text = text.slice(0, idx);
+  }
+  return text + "...";
+}
+
+class Project {
+  isFullDesc = false;
+  WORD_COUNT = 60;
+
+  constructor(domProject) {
+    this.domProject = domProject;
+    this.domProjectImage = this.domProject.children[0];
+    this.domProjectText = this.domProject.children[1];
+    this.domProjectDescription = this.domProject.children[1].children[1];
+    this.domShowMoreBtn = this.domProject.children[1].children[2];
+    this.descriptionFullText = this.domProjectDescription.innerHTML;
+
+    this.domProjectDescription.innerHTML = reduceText(
+      this.descriptionFullText,
+      this.WORD_COUNT
+    );
+
+    this.domShowMoreBtn.addEventListener(
+      "click",
+      this.toggleShowMore.bind(this)
+    );
+  }
+
+  toggleShowMore(event) {
+    if (!this.isFullDesc) {
+      this.domProjectDescription.innerHTML = this.descriptionFullText;
+      this.isFullDesc = true;
+      this.domProjectImage.style.display = "none";
+      this.domProjectText.style.overflow = "scroll";
+      this.domShowMoreBtn.innerHTML = "show less";
+
+      console.log(this.domShowMoreBtn.innerHTML);
+    } else {
+      this.domProjectDescription.innerHTML = reduceText(
+        this.descriptionFullText,
+        this.WORD_COUNT
+      );
+      this.isFullDesc = false;
+      this.domProjectImage.style.display = "block";
+      this.domProjectText.style.overflow = "hidden";
+      this.domShowMoreBtn.innerHTML = "show more";
+    }
+  }
+}
+
+const domProjects = document.querySelectorAll(".project");
+const projectObjList = [];
+domProjects.forEach((project) => {
+  projectObjList.push(new Project(project));
+});
 
 // window in dom should be like this
 // container should have height and width specified
@@ -64,12 +110,11 @@
 //   </div>
 // </div>
 
-class Window {
+class CustomWindow {
   isResizing = false;
   isMinimized = false;
   isClosed = false;
   isFullScreen = false;
-  domWindow = null;
 
   constructor(domWindow) {
     this.domWindow = domWindow;
@@ -135,5 +180,5 @@ let windowObjList = [];
 const domWindows = document.querySelectorAll(".window");
 
 domWindows.forEach((window) => {
-  windowObjList.push(new Window(window));
+  windowObjList.push(new CustomWindow(window));
 });
