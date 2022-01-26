@@ -6,7 +6,7 @@
   "scripts": {
     "deploy": "gh-pages -d dist",
     "build:sass": "node-sass --source-map=true src/scss/ -o dist/new_css/",
-    "prefix": "npm run build:sass && postcss dist/new_css/*.css -r -u autoprefixer",
+    "prefix": "npm run build:sass && postcss dist/css/*.css -r -u autoprefixer postcss-minify",
     "start": "onchange src/scss/** -- npm run prefix"
   },
   "repository": {
