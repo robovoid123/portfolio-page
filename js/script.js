@@ -110,11 +110,33 @@ domProjects.forEach((project) => {
 //   </div>
 // </div>
 
+const throttle = (func, delay) => {
+  let toThrottle = false;
+  return function () {
+    if (!toThrottle) {
+      toThrottle = true;
+      func.apply(this, arguments);
+      setTimeout(() => {
+        toThrottle = false;
+      }, delay);
+    }
+  };
+};
+
+const debounce = (func, delay) => {
+  let timerId;
+  return function () {
+    clearTimeout(timerId);
+    timerId = setTimeout(() => func.apply(this, arguments), delay);
+  };
+};
+
 class CustomWindow {
   isResizing = false;
   isMinimized = false;
   isClosed = false;
   isFullScreen = false;
+  isMoving = false;
 
   constructor(domWindow) {
     this.domWindow = domWindow;
@@ -141,13 +163,16 @@ class CustomWindow {
     this.prevX = event.clientX;
     this.prevY = event.clientY;
 
-    // this.domWindow.addEventListener("mouseup", this.finishDrag.bind(this));
-    this.domWindow.onmouseup = this.finishDrag.bind(this);
-    this.domWindow.onmousemove = this.drag.bind(this);
+    const self = this;
+    // const throttledDrag = throttle(self.drag.bind(self), 10);
+    const debouncedDrag = debounce(self.drag.bind(self), 1);
+    window.onmousemove = debouncedDrag;
+    window.onmouseup = this.finishDrag.bind(this);
   }
 
   drag(event) {
     // calculate the new cursor position:
+    console.log("fired");
     let deltaX = this.prevX - event.clientX;
     let deltaY = this.prevY - event.clientY;
     this.prevX = event.clientX;
@@ -159,9 +184,10 @@ class CustomWindow {
   }
 
   finishDrag(event) {
+    console.log("drag finished");
     // stop moving when mouse button is released:
-    this.domWindow.onmouseup = null;
-    this.domWindow.onmousemove = null;
+    window.onmouseup = null;
+    window.onmousemove = null;
 
     // send not moving window to back
     this.domWindow.style.zIndex = 299;
