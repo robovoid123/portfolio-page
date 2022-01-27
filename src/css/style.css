@@ -463,6 +463,7 @@ a:hover {
   width: 90vw;
   height: 80vh;
   max-height: 700px;
+  max-width: 560px;
   min-width: 344px;
 }
 
@@ -585,7 +586,7 @@ a:hover {
   }
 
   .hero__top__container {
-    max-width: 890px;
+    max-width: 700px;
     max-height: 400px;
   }
 
@@ -616,6 +617,13 @@ a:hover {
 
   .go-down {
     display: flex;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .hero__top__container {
+    max-width: 860px;
+    max-height: 400px;
   }
 }
 
