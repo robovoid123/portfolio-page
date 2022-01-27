@@ -182,3 +182,26 @@ const domWindows = document.querySelectorAll(".window");
 domWindows.forEach((window) => {
   windowObjList.push(new CustomWindow(window));
 });
+
+(function contactForm() {
+  const formDom = document.getElementById("contact-form");
+  const submitBtn = formDom.children[9];
+
+  submitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const name = formDom.children[2].value;
+    const subject = formDom.children[4].value;
+    const email = formDom.children[6].value;
+    const message = formDom.children[8].value;
+    const emailRe =
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+    if (!name || !email || !subject || !message) {
+      alert("please fill all the input");
+    } else if (!email.match(emailRe)) {
+      alert("email is invalid");
+    } else {
+      // send email
+    }
+  });
+})();
