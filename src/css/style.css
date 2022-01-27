@@ -465,6 +465,7 @@ a:hover {
   max-height: 700px;
   max-width: 560px;
   min-width: 344px;
+  min-height: 400px;
 }
 
 .hero__top {
